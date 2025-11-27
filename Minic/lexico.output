@@ -1,0 +1,1269 @@
+State 84 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 $@1: ε
+
+    2 program: $@1 ID LPAREN RPAREN LCORCH declarations statement_list RCORCH
+
+    3 declarations: declarations VAR tipo var_list SEMICOLON
+    4             | declarations CONST tipo const_list SEMICOLON
+    5             | ε
+
+    6 tipo: INT
+
+    7 var_list: ID
+    8         | var_list COMMA ID
+
+    9 const_list: ID ASSIGNOP expression
+   10           | const_list COMMA ID ASSIGNOP expression
+
+   11 statement_list: statement_list statement
+   12               | ε
+
+   13 statement: ID ASSIGNOP expression SEMICOLON
+   14          | LCORCH statement_list RCORCH
+   15          | IF LPAREN relative_expression RPAREN statement ELSE statement
+   16          | IF LPAREN relative_expression RPAREN statement
+   17          | WHILE LPAREN relative_expression RPAREN statement
+   18          | DO statement WHILE LPAREN relative_expression RPAREN SEMICOLON
+   19          | PRINT LPAREN print_list RPAREN SEMICOLON
+   20          | READ LPAREN read_list RPAREN SEMICOLON
+
+   21 print_list: print_item
+   22           | print_list COMMA print_item
+
+   23 print_item: expression
+   24           | STRING
+
+   25 read_list: ID
+   26          | read_list COMMA ID
+
+   27 relative_expression: expression MENOR expression
+   28                    | expression MAYOR expression
+   29                    | expression MENORIGUAL expression
+   30                    | expression MAYORIGUAL expression
+   31                    | expression IGUAL expression
+   32                    | expression DISTINTO expression
+
+   33 expression: expression PLUSOP expression
+   34           | expression MINUSOP expression
+   35           | expression POR expression
+   36           | expression DIV expression
+   37           | LPAREN expression INTERR expression DOSPUNT expression RPAREN
+   38           | MINUSOP expression
+   39           | LPAREN expression RPAREN
+   40           | ID
+   41           | NUM
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    READ (258) 20
+    VAR (259) 3
+    CONST (260) 4
+    INT (261) 6
+    IF (262) 15 16
+    ELSE (263) 15
+    WHILE (264) 17 18
+    PRINT (265) 19
+    LPAREN (266) 2 15 16 17 18 19 20 37 39
+    RPAREN (267) 2 15 16 17 18 19 20 37 39
+    SEMICOLON (268) 3 4 13 18 19 20
+    COMMA (269) 8 10 22 26
+    ASSIGNOP (270) 9 10 13
+    LCORCH (271) 2 14
+    RCORCH (272) 2 14
+    INTERR (273) 37
+    DOSPUNT (274) 37
+    PLUSOP (275) 33
+    MINUSOP (276) 34 38
+    DIV (277) 36
+    POR (278) 35
+    DO (279) 18
+    MENOR (280) 27
+    MAYOR (281) 28
+    MENORIGUAL (282) 29
+    MAYORIGUAL (283) 30
+    IGUAL (284) 31
+    DISTINTO (285) 32
+    NUM <c> (286) 41
+    ID <c> (287) 2 7 8 9 10 13 25 26 40
+    STRING <c> (288) 24
+    UMINUS (289)
+
+
+Nonterminals, with rules where they appear
+
+    $accept (35)
+        on left: 0
+    program (36)
+        on left: 2
+        on right: 0
+    $@1 (37)
+        on left: 1
+        on right: 2
+    declarations <lc> (38)
+        on left: 3 4 5
+        on right: 2 3 4
+    tipo (39)
+        on left: 6
+        on right: 3 4
+    var_list <lc> (40)
+        on left: 7 8
+        on right: 3 8
+    const_list <lc> (41)
+        on left: 9 10
+        on right: 4 10
+    statement_list <lc> (42)
+        on left: 11 12
+        on right: 2 11 14
+    statement <lc> (43)
+        on left: 13 14 15 16 17 18 19 20
+        on right: 11 15 16 17 18
+    print_list <lc> (44)
+        on left: 21 22
+        on right: 19 22
+    print_item <lc> (45)
+        on left: 23 24
+        on right: 21 22
+    read_list <lc> (46)
+        on left: 25 26
+        on right: 20 26
+    relative_expression <lc> (47)
+        on left: 27 28 29 30 31 32
+        on right: 15 16 17 18
+    expression <lc> (48)
+        on left: 33 34 35 36 37 38 39 40 41
+        on right: 9 10 13 23 27 28 29 30 31 32 33 34 35 36 37 38 39
+
+
+State 0
+
+    0 $accept: • program $end
+
+    $default  reduce using rule 1 ($@1)
+
+    program  go to state 1
+    $@1      go to state 2
+
+
+State 1
+
+    0 $accept: program • $end
+
+    $end  shift, and go to state 3
+
+
+State 2
+
+    2 program: $@1 • ID LPAREN RPAREN LCORCH declarations statement_list RCORCH
+
+    ID  shift, and go to state 4
+
+
+State 3
+
+    0 $accept: program $end •
+
+    $default  accept
+
+
+State 4
+
+    2 program: $@1 ID • LPAREN RPAREN LCORCH declarations statement_list RCORCH
+
+    LPAREN  shift, and go to state 5
+
+
+State 5
+
+    2 program: $@1 ID LPAREN • RPAREN LCORCH declarations statement_list RCORCH
+
+    RPAREN  shift, and go to state 6
+
+
+State 6
+
+    2 program: $@1 ID LPAREN RPAREN • LCORCH declarations statement_list RCORCH
+
+    LCORCH  shift, and go to state 7
+
+
+State 7
+
+    2 program: $@1 ID LPAREN RPAREN LCORCH • declarations statement_list RCORCH
+
+    $default  reduce using rule 5 (declarations)
+
+    declarations  go to state 8
+
+
+State 8
+
+    2 program: $@1 ID LPAREN RPAREN LCORCH declarations • statement_list RCORCH
+    3 declarations: declarations • VAR tipo var_list SEMICOLON
+    4             | declarations • CONST tipo const_list SEMICOLON
+
+    VAR    shift, and go to state 9
+    CONST  shift, and go to state 10
+
+    $default  reduce using rule 12 (statement_list)
+
+    statement_list  go to state 11
+
+
+State 9
+
+    3 declarations: declarations VAR • tipo var_list SEMICOLON
+
+    INT  shift, and go to state 12
+
+    tipo  go to state 13
+
+
+State 10
+
+    4 declarations: declarations CONST • tipo const_list SEMICOLON
+
+    INT  shift, and go to state 12
+
+    tipo  go to state 14
+
+
+State 11
+
+    2 program: $@1 ID LPAREN RPAREN LCORCH declarations statement_list • RCORCH
+   11 statement_list: statement_list • statement
+
+    READ    shift, and go to state 15
+    IF      shift, and go to state 16
+    WHILE   shift, and go to state 17
+    PRINT   shift, and go to state 18
+    LCORCH  shift, and go to state 19
+    RCORCH  shift, and go to state 20
+    DO      shift, and go to state 21
+    ID      shift, and go to state 22
+
+    statement  go to state 23
+
+
+State 12
+
+    6 tipo: INT •
+
+    $default  reduce using rule 6 (tipo)
+
+
+State 13
+
+    3 declarations: declarations VAR tipo • var_list SEMICOLON
+
+    ID  shift, and go to state 24
+
+    var_list  go to state 25
+
+
+State 14
+
+    4 declarations: declarations CONST tipo • const_list SEMICOLON
+
+    ID  shift, and go to state 26
+
+    const_list  go to state 27
+
+
+State 15
+
+   20 statement: READ • LPAREN read_list RPAREN SEMICOLON
+
+    LPAREN  shift, and go to state 28
+
+
+State 16
+
+   15 statement: IF • LPAREN relative_expression RPAREN statement ELSE statement
+   16          | IF • LPAREN relative_expression RPAREN statement
+
+    LPAREN  shift, and go to state 29
+
+
+State 17
+
+   17 statement: WHILE • LPAREN relative_expression RPAREN statement
+
+    LPAREN  shift, and go to state 30
+
+
+State 18
+
+   19 statement: PRINT • LPAREN print_list RPAREN SEMICOLON
+
+    LPAREN  shift, and go to state 31
+
+
+State 19
+
+   14 statement: LCORCH • statement_list RCORCH
+
+    $default  reduce using rule 12 (statement_list)
+
+    statement_list  go to state 32
+
+
+State 20
+
+    2 program: $@1 ID LPAREN RPAREN LCORCH declarations statement_list RCORCH •
+
+    $default  reduce using rule 2 (program)
+
+
+State 21
+
+   18 statement: DO • statement WHILE LPAREN relative_expression RPAREN SEMICOLON
+
+    READ    shift, and go to state 15
+    IF      shift, and go to state 16
+    WHILE   shift, and go to state 17
+    PRINT   shift, and go to state 18
+    LCORCH  shift, and go to state 19
+    DO      shift, and go to state 21
+    ID      shift, and go to state 22
+
+    statement  go to state 33
+
+
+State 22
+
+   13 statement: ID • ASSIGNOP expression SEMICOLON
+
+    ASSIGNOP  shift, and go to state 34
+
+
+State 23
+
+   11 statement_list: statement_list statement •
+
+    $default  reduce using rule 11 (statement_list)
+
+
+State 24
+
+    7 var_list: ID •
+
+    $default  reduce using rule 7 (var_list)
+
+
+State 25
+
+    3 declarations: declarations VAR tipo var_list • SEMICOLON
+    8 var_list: var_list • COMMA ID
+
+    SEMICOLON  shift, and go to state 35
+    COMMA      shift, and go to state 36
+
+
+State 26
+
+    9 const_list: ID • ASSIGNOP expression
+
+    ASSIGNOP  shift, and go to state 37
+
+
+State 27
+
+    4 declarations: declarations CONST tipo const_list • SEMICOLON
+   10 const_list: const_list • COMMA ID ASSIGNOP expression
+
+    SEMICOLON  shift, and go to state 38
+    COMMA      shift, and go to state 39
+
+
+State 28
+
+   20 statement: READ LPAREN • read_list RPAREN SEMICOLON
+
+    ID  shift, and go to state 40
+
+    read_list  go to state 41
+
+
+State 29
+
+   15 statement: IF LPAREN • relative_expression RPAREN statement ELSE statement
+   16          | IF LPAREN • relative_expression RPAREN statement
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    relative_expression  go to state 46
+    expression           go to state 47
+
+
+State 30
+
+   17 statement: WHILE LPAREN • relative_expression RPAREN statement
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    relative_expression  go to state 48
+    expression           go to state 47
+
+
+State 31
+
+   19 statement: PRINT LPAREN • print_list RPAREN SEMICOLON
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+    STRING   shift, and go to state 49
+
+    print_list  go to state 50
+    print_item  go to state 51
+    expression  go to state 52
+
+
+State 32
+
+   11 statement_list: statement_list • statement
+   14 statement: LCORCH statement_list • RCORCH
+
+    READ    shift, and go to state 15
+    IF      shift, and go to state 16
+    WHILE   shift, and go to state 17
+    PRINT   shift, and go to state 18
+    LCORCH  shift, and go to state 19
+    RCORCH  shift, and go to state 53
+    DO      shift, and go to state 21
+    ID      shift, and go to state 22
+
+    statement  go to state 23
+
+
+State 33
+
+   18 statement: DO statement • WHILE LPAREN relative_expression RPAREN SEMICOLON
+
+    WHILE  shift, and go to state 54
+
+
+State 34
+
+   13 statement: ID ASSIGNOP • expression SEMICOLON
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    expression  go to state 55
+
+
+State 35
+
+    3 declarations: declarations VAR tipo var_list SEMICOLON •
+
+    $default  reduce using rule 3 (declarations)
+
+
+State 36
+
+    8 var_list: var_list COMMA • ID
+
+    ID  shift, and go to state 56
+
+
+State 37
+
+    9 const_list: ID ASSIGNOP • expression
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    expression  go to state 57
+
+
+State 38
+
+    4 declarations: declarations CONST tipo const_list SEMICOLON •
+
+    $default  reduce using rule 4 (declarations)
+
+
+State 39
+
+   10 const_list: const_list COMMA • ID ASSIGNOP expression
+
+    ID  shift, and go to state 58
+
+
+State 40
+
+   25 read_list: ID •
+
+    $default  reduce using rule 25 (read_list)
+
+
+State 41
+
+   20 statement: READ LPAREN read_list • RPAREN SEMICOLON
+   26 read_list: read_list • COMMA ID
+
+    RPAREN  shift, and go to state 59
+    COMMA   shift, and go to state 60
+
+
+State 42
+
+   37 expression: LPAREN • expression INTERR expression DOSPUNT expression RPAREN
+   39           | LPAREN • expression RPAREN
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    expression  go to state 61
+
+
+State 43
+
+   38 expression: MINUSOP • expression
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    expression  go to state 62
+
+
+State 44
+
+   41 expression: NUM •
+
+    $default  reduce using rule 41 (expression)
+
+
+State 45
+
+   40 expression: ID •
+
+    $default  reduce using rule 40 (expression)
+
+
+State 46
+
+   15 statement: IF LPAREN relative_expression • RPAREN statement ELSE statement
+   16          | IF LPAREN relative_expression • RPAREN statement
+
+    RPAREN  shift, and go to state 63
+
+
+State 47
+
+   27 relative_expression: expression • MENOR expression
+   28                    | expression • MAYOR expression
+   29                    | expression • MENORIGUAL expression
+   30                    | expression • MAYORIGUAL expression
+   31                    | expression • IGUAL expression
+   32                    | expression • DISTINTO expression
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   36           | expression • DIV expression
+
+    PLUSOP      shift, and go to state 64
+    MINUSOP     shift, and go to state 65
+    DIV         shift, and go to state 66
+    POR         shift, and go to state 67
+    MENOR       shift, and go to state 68
+    MAYOR       shift, and go to state 69
+    MENORIGUAL  shift, and go to state 70
+    MAYORIGUAL  shift, and go to state 71
+    IGUAL       shift, and go to state 72
+    DISTINTO    shift, and go to state 73
+
+
+State 48
+
+   17 statement: WHILE LPAREN relative_expression • RPAREN statement
+
+    RPAREN  shift, and go to state 74
+
+
+State 49
+
+   24 print_item: STRING •
+
+    $default  reduce using rule 24 (print_item)
+
+
+State 50
+
+   19 statement: PRINT LPAREN print_list • RPAREN SEMICOLON
+   22 print_list: print_list • COMMA print_item
+
+    RPAREN  shift, and go to state 75
+    COMMA   shift, and go to state 76
+
+
+State 51
+
+   21 print_list: print_item •
+
+    $default  reduce using rule 21 (print_list)
+
+
+State 52
+
+   23 print_item: expression •
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   36           | expression • DIV expression
+
+    PLUSOP   shift, and go to state 64
+    MINUSOP  shift, and go to state 65
+    DIV      shift, and go to state 66
+    POR      shift, and go to state 67
+
+    $default  reduce using rule 23 (print_item)
+
+
+State 53
+
+   14 statement: LCORCH statement_list RCORCH •
+
+    $default  reduce using rule 14 (statement)
+
+
+State 54
+
+   18 statement: DO statement WHILE • LPAREN relative_expression RPAREN SEMICOLON
+
+    LPAREN  shift, and go to state 77
+
+
+State 55
+
+   13 statement: ID ASSIGNOP expression • SEMICOLON
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   36           | expression • DIV expression
+
+    SEMICOLON  shift, and go to state 78
+    PLUSOP     shift, and go to state 64
+    MINUSOP    shift, and go to state 65
+    DIV        shift, and go to state 66
+    POR        shift, and go to state 67
+
+
+State 56
+
+    8 var_list: var_list COMMA ID •
+
+    $default  reduce using rule 8 (var_list)
+
+
+State 57
+
+    9 const_list: ID ASSIGNOP expression •
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   36           | expression • DIV expression
+
+    PLUSOP   shift, and go to state 64
+    MINUSOP  shift, and go to state 65
+    DIV      shift, and go to state 66
+    POR      shift, and go to state 67
+
+    $default  reduce using rule 9 (const_list)
+
+
+State 58
+
+   10 const_list: const_list COMMA ID • ASSIGNOP expression
+
+    ASSIGNOP  shift, and go to state 79
+
+
+State 59
+
+   20 statement: READ LPAREN read_list RPAREN • SEMICOLON
+
+    SEMICOLON  shift, and go to state 80
+
+
+State 60
+
+   26 read_list: read_list COMMA • ID
+
+    ID  shift, and go to state 81
+
+
+State 61
+
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   36           | expression • DIV expression
+   37           | LPAREN expression • INTERR expression DOSPUNT expression RPAREN
+   39           | LPAREN expression • RPAREN
+
+    RPAREN   shift, and go to state 82
+    INTERR   shift, and go to state 83
+    PLUSOP   shift, and go to state 64
+    MINUSOP  shift, and go to state 65
+    DIV      shift, and go to state 66
+    POR      shift, and go to state 67
+
+
+State 62
+
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   36           | expression • DIV expression
+   38           | MINUSOP expression •
+
+    $default  reduce using rule 38 (expression)
+
+
+State 63
+
+   15 statement: IF LPAREN relative_expression RPAREN • statement ELSE statement
+   16          | IF LPAREN relative_expression RPAREN • statement
+
+    READ    shift, and go to state 15
+    IF      shift, and go to state 16
+    WHILE   shift, and go to state 17
+    PRINT   shift, and go to state 18
+    LCORCH  shift, and go to state 19
+    DO      shift, and go to state 21
+    ID      shift, and go to state 22
+
+    statement  go to state 84
+
+
+State 64
+
+   33 expression: expression PLUSOP • expression
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    expression  go to state 85
+
+
+State 65
+
+   34 expression: expression MINUSOP • expression
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    expression  go to state 86
+
+
+State 66
+
+   36 expression: expression DIV • expression
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    expression  go to state 87
+
+
+State 67
+
+   35 expression: expression POR • expression
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    expression  go to state 88
+
+
+State 68
+
+   27 relative_expression: expression MENOR • expression
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    expression  go to state 89
+
+
+State 69
+
+   28 relative_expression: expression MAYOR • expression
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    expression  go to state 90
+
+
+State 70
+
+   29 relative_expression: expression MENORIGUAL • expression
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    expression  go to state 91
+
+
+State 71
+
+   30 relative_expression: expression MAYORIGUAL • expression
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    expression  go to state 92
+
+
+State 72
+
+   31 relative_expression: expression IGUAL • expression
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    expression  go to state 93
+
+
+State 73
+
+   32 relative_expression: expression DISTINTO • expression
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    expression  go to state 94
+
+
+State 74
+
+   17 statement: WHILE LPAREN relative_expression RPAREN • statement
+
+    READ    shift, and go to state 15
+    IF      shift, and go to state 16
+    WHILE   shift, and go to state 17
+    PRINT   shift, and go to state 18
+    LCORCH  shift, and go to state 19
+    DO      shift, and go to state 21
+    ID      shift, and go to state 22
+
+    statement  go to state 95
+
+
+State 75
+
+   19 statement: PRINT LPAREN print_list RPAREN • SEMICOLON
+
+    SEMICOLON  shift, and go to state 96
+
+
+State 76
+
+   22 print_list: print_list COMMA • print_item
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+    STRING   shift, and go to state 49
+
+    print_item  go to state 97
+    expression  go to state 52
+
+
+State 77
+
+   18 statement: DO statement WHILE LPAREN • relative_expression RPAREN SEMICOLON
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    relative_expression  go to state 98
+    expression           go to state 47
+
+
+State 78
+
+   13 statement: ID ASSIGNOP expression SEMICOLON •
+
+    $default  reduce using rule 13 (statement)
+
+
+State 79
+
+   10 const_list: const_list COMMA ID ASSIGNOP • expression
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    expression  go to state 99
+
+
+State 80
+
+   20 statement: READ LPAREN read_list RPAREN SEMICOLON •
+
+    $default  reduce using rule 20 (statement)
+
+
+State 81
+
+   26 read_list: read_list COMMA ID •
+
+    $default  reduce using rule 26 (read_list)
+
+
+State 82
+
+   39 expression: LPAREN expression RPAREN •
+
+    $default  reduce using rule 39 (expression)
+
+
+State 83
+
+   37 expression: LPAREN expression INTERR • expression DOSPUNT expression RPAREN
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    expression  go to state 100
+
+
+State 84
+
+   15 statement: IF LPAREN relative_expression RPAREN statement • ELSE statement
+   16          | IF LPAREN relative_expression RPAREN statement •
+
+    ELSE  shift, and go to state 101
+
+    ELSE      [reduce using rule 16 (statement)]
+    $default  reduce using rule 16 (statement)
+
+
+State 85
+
+   33 expression: expression • PLUSOP expression
+   33           | expression PLUSOP expression •
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   36           | expression • DIV expression
+
+    DIV  shift, and go to state 66
+    POR  shift, and go to state 67
+
+    $default  reduce using rule 33 (expression)
+
+
+State 86
+
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   34           | expression MINUSOP expression •
+   35           | expression • POR expression
+   36           | expression • DIV expression
+
+    DIV  shift, and go to state 66
+    POR  shift, and go to state 67
+
+    $default  reduce using rule 34 (expression)
+
+
+State 87
+
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   36           | expression • DIV expression
+   36           | expression DIV expression •
+
+    $default  reduce using rule 36 (expression)
+
+
+State 88
+
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   35           | expression POR expression •
+   36           | expression • DIV expression
+
+    $default  reduce using rule 35 (expression)
+
+
+State 89
+
+   27 relative_expression: expression MENOR expression •
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   36           | expression • DIV expression
+
+    PLUSOP   shift, and go to state 64
+    MINUSOP  shift, and go to state 65
+    DIV      shift, and go to state 66
+    POR      shift, and go to state 67
+
+    $default  reduce using rule 27 (relative_expression)
+
+
+State 90
+
+   28 relative_expression: expression MAYOR expression •
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   36           | expression • DIV expression
+
+    PLUSOP   shift, and go to state 64
+    MINUSOP  shift, and go to state 65
+    DIV      shift, and go to state 66
+    POR      shift, and go to state 67
+
+    $default  reduce using rule 28 (relative_expression)
+
+
+State 91
+
+   29 relative_expression: expression MENORIGUAL expression •
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   36           | expression • DIV expression
+
+    PLUSOP   shift, and go to state 64
+    MINUSOP  shift, and go to state 65
+    DIV      shift, and go to state 66
+    POR      shift, and go to state 67
+
+    $default  reduce using rule 29 (relative_expression)
+
+
+State 92
+
+   30 relative_expression: expression MAYORIGUAL expression •
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   36           | expression • DIV expression
+
+    PLUSOP   shift, and go to state 64
+    MINUSOP  shift, and go to state 65
+    DIV      shift, and go to state 66
+    POR      shift, and go to state 67
+
+    $default  reduce using rule 30 (relative_expression)
+
+
+State 93
+
+   31 relative_expression: expression IGUAL expression •
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   36           | expression • DIV expression
+
+    PLUSOP   shift, and go to state 64
+    MINUSOP  shift, and go to state 65
+    DIV      shift, and go to state 66
+    POR      shift, and go to state 67
+
+    $default  reduce using rule 31 (relative_expression)
+
+
+State 94
+
+   32 relative_expression: expression DISTINTO expression •
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   36           | expression • DIV expression
+
+    PLUSOP   shift, and go to state 64
+    MINUSOP  shift, and go to state 65
+    DIV      shift, and go to state 66
+    POR      shift, and go to state 67
+
+    $default  reduce using rule 32 (relative_expression)
+
+
+State 95
+
+   17 statement: WHILE LPAREN relative_expression RPAREN statement •
+
+    $default  reduce using rule 17 (statement)
+
+
+State 96
+
+   19 statement: PRINT LPAREN print_list RPAREN SEMICOLON •
+
+    $default  reduce using rule 19 (statement)
+
+
+State 97
+
+   22 print_list: print_list COMMA print_item •
+
+    $default  reduce using rule 22 (print_list)
+
+
+State 98
+
+   18 statement: DO statement WHILE LPAREN relative_expression • RPAREN SEMICOLON
+
+    RPAREN  shift, and go to state 102
+
+
+State 99
+
+   10 const_list: const_list COMMA ID ASSIGNOP expression •
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   36           | expression • DIV expression
+
+    PLUSOP   shift, and go to state 64
+    MINUSOP  shift, and go to state 65
+    DIV      shift, and go to state 66
+    POR      shift, and go to state 67
+
+    $default  reduce using rule 10 (const_list)
+
+
+State 100
+
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   36           | expression • DIV expression
+   37           | LPAREN expression INTERR expression • DOSPUNT expression RPAREN
+
+    DOSPUNT  shift, and go to state 103
+    PLUSOP   shift, and go to state 64
+    MINUSOP  shift, and go to state 65
+    DIV      shift, and go to state 66
+    POR      shift, and go to state 67
+
+
+State 101
+
+   15 statement: IF LPAREN relative_expression RPAREN statement ELSE • statement
+
+    READ    shift, and go to state 15
+    IF      shift, and go to state 16
+    WHILE   shift, and go to state 17
+    PRINT   shift, and go to state 18
+    LCORCH  shift, and go to state 19
+    DO      shift, and go to state 21
+    ID      shift, and go to state 22
+
+    statement  go to state 104
+
+
+State 102
+
+   18 statement: DO statement WHILE LPAREN relative_expression RPAREN • SEMICOLON
+
+    SEMICOLON  shift, and go to state 105
+
+
+State 103
+
+   37 expression: LPAREN expression INTERR expression DOSPUNT • expression RPAREN
+
+    LPAREN   shift, and go to state 42
+    MINUSOP  shift, and go to state 43
+    NUM      shift, and go to state 44
+    ID       shift, and go to state 45
+
+    expression  go to state 106
+
+
+State 104
+
+   15 statement: IF LPAREN relative_expression RPAREN statement ELSE statement •
+
+    $default  reduce using rule 15 (statement)
+
+
+State 105
+
+   18 statement: DO statement WHILE LPAREN relative_expression RPAREN SEMICOLON •
+
+    $default  reduce using rule 18 (statement)
+
+
+State 106
+
+   33 expression: expression • PLUSOP expression
+   34           | expression • MINUSOP expression
+   35           | expression • POR expression
+   36           | expression • DIV expression
+   37           | LPAREN expression INTERR expression DOSPUNT expression • RPAREN
+
+    RPAREN   shift, and go to state 107
+    PLUSOP   shift, and go to state 64
+    MINUSOP  shift, and go to state 65
+    DIV      shift, and go to state 66
+    POR      shift, and go to state 67
+
+
+State 107
+
+   37 expression: LPAREN expression INTERR expression DOSPUNT expression RPAREN •
+
+    $default  reduce using rule 37 (expression)
